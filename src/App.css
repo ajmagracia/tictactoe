@@ -1,0 +1,9 @@
+.ttt {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto auto auto;
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+  border: 5px solid red;
+}
