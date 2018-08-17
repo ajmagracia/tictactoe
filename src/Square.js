@@ -49,13 +49,12 @@ class Square extends Component {
             this.props.setWin()
           } else if(oWinCheck){
             this.props.setWin()
-          } else if(this.props.counter===8){
-            this.props.setWin()
           }
         }
       }
     }
   }
+
   render() {
     return (
       <div className = "Square" onClick={this.play}>{this.state.value}</div>
