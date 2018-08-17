@@ -1,34 +1,52 @@
 import React, { Component } from 'react';
 import './App.css';
 import Square from './Square'
+import NewGame from './NewGame'
+import Header from './Header'
 
 class App extends Component {
   constructor(){
     super()
     this.state = {
-      counter: 0
+      counter: 0,
+      xo: [],
+      squareArray: ["", "", "", "", "", "", "", "", "" ],
+      win: false
     }
   }
 
-  countUp = () =>{
+  update = (xo) => {
+    this.setState({xo: xo})
     this.setState({counter: this.state.counter+1})
   }
 
+  setWin = () => {
+    this.setState({win: true})
+  }
+
+  reset = () => {
+    if(this.state.win || this.state.counter===9){
+      window.location.reload()
+    }else{
+      window.alert('Quitters never win and winners never quit')
+    }
+  }
+
   render() {
-    return (
-      <body>
-          <div className="ttt">
-            <Square id = "1A"  countUp={this.countUp} counter={this.state.counter}/>
-            <Square id = "1B"  countUp={this.countUp} counter={this.state.counter}/>
-            <Square id = "1C"  countUp={this.countUp} counter={this.state.counter}/>
-            <Square id = "2A"  countUp={this.countUp} counter={this.state.counter}/>
-            <Square id = "2B"  countUp={this.countUp} counter={this.state.counter}/>
-            <Square id = "2C"  countUp={this.countUp} counter={this.state.counter}/>
-            <Square id = "3A"  countUp={this.countUp} counter={this.state.counter}/>
-            <Square id = "3B"  countUp={this.countUp} counter={this.state.counter}/>
-            <Square id = "3C"  countUp={this.countUp} counter={this.state.counter}/>
-          </div>
-      </body>
+    let squares = this.state.squareArray.map((square,index) =>{
+      return(
+        <Square index={index} key={index} counter={this.state.counter} win={this.state.win} xo={this.state.xo} update={this.update} setWin={this.setWin}/>
+      )
+    })
+      return (
+      <main>
+        <Header counter={this.state.counter} win={this.state.win}/>
+        <div className="ttt">
+          {squares}
+        </div>
+        <br/>
+        <NewGame reset={this.reset}/>
+      </main>
     );
   }
 }

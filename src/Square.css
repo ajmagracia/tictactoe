@@ -1,12 +1,12 @@
 .Square {
-  font-size: 27vh;
-  max-width: 30vh;
-  max-height: 30vh;
-  width: 30vw;
-  height: 30vw;
+  font-size: 21vmin;
+  max-width: 24vh;
+  max-height: 24vh;
+  width: 27vw;
+  height: 27vw;
   border: 1px solid #000;
-  /* border-radius: 1%; */
+  border-radius: 15%;
   text-align: center;
   user-select: none;
-  background-color: rgb(255, 194, 102)
+  background: linear-gradient(90deg, rgba(143, 101, 12, 1) 0%, rgba(204, 139, 13, 1) 2%, rgba(212, 130, 1, 1) 10%, rgba(255, 156, 0, 1) 30%, rgba(255, 156, 0, 1) 70%, rgba(212, 130, 1, 1) 90%, rgba(204, 139, 13, 1) 98%, rgba(143, 101, 12, 1) 100%);
 }
