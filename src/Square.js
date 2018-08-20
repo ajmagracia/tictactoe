@@ -1,63 +1,78 @@
-import React, { Component } from 'react'
+import React, {
+  Component
+} from 'react'
 import './Square.css'
 
 class Square extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
-      combos: [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]],
-      isFill: false,
-      value: '',
-      oWinCheck: false,
       xWinCheck: false,
+      oWinCheck: false
     }
   }
 
   play = () => {
-    let {xo, index, counter} = this.props
-    let {oWinCheck, xWinCheck, combos} = this.state
-    if(!this.props.win){
-      if(!this.state.isFill){
-        if(counter%2===0){
-          xo[index] = 'X'
-          this.setState({value: 'X'})
-          this.setState({isFill: true})
-          this.props.update(xo)
-          console.log(xo)
-        } else{
-          xo[index] = 'O'
-          this.setState({value: 'O'})
-          this.setState({isFill: true})
-          this.props.update(xo)
-          console.log(xo)
+    let {
+      counter,
+      xo,
+      index,
+      win
+    } = this.props
+    let {
+      xWinCheck,
+      oWinCheck,
+      value
+    } = this.state
+    console.log(xo)
+    if (!win) {
+      if (xo[index]=== "") {
+        if (counter % 2 === 0) {
+          xo[index] = ('X')
+          this.props.update(xo,'O')
+        } else {
+          xo[index] = ('O')
+          this.props.update(xo,'X')
         }
-        if(this.props.counter > 3){
-          //TODO: SIMPLIFY THIS MAKE THIS BETTER THIS SUCKS RIGHT NOW
+
+        if (this.props.counter > 3) {
+          var combos = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+          ]
           xWinCheck = combos.some(combo => {
-            return combo.every(x =>{
-              return xo[x]==='X'
-              })
+            return combo.every(x => {
+              return xo[x] === 'X'
+            })
           })
           ////////
           oWinCheck = combos.some(combo => {
-            return combo.every(x =>{
-              return xo[x]==='O'
-              })
+            return combo.every(o => {
+              return xo[o] === 'O'
+            })
           })
-          console.log(xWinCheck, oWinCheck)
-          if(xWinCheck){
-            this.props.setWin()
-          } else if(oWinCheck){
-            this.props.setWin()
+          if (xWinCheck || oWinCheck) {
+            this.props.alertWin(`${xo[counter-1]} Wins!!!`)
+          } else if (this.props.counter === 8) {
+            this.props.alertWin("Tie like ya neck")
           }
         }
       }
     }
   }
-
   render() {
     return (
-      <div className = "Square" onClick={this.play}>{this.state.value}</div>
+      <div className = "Wrapper">
+        <div className = "Square" onClick = {this.play}>
+          {this.props.xo[this.props.index]}
+        </div>
+      </div>
     )
   }
 }
