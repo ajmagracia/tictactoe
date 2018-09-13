@@ -12,12 +12,13 @@ class Board extends Component {
     this.state = {
       counter: 0,
       xo: ["", "", "", "", "", "", "", "", ""],
-      squareArray: ["", "", "", "", "", "", "", "", ""],
       win: false,
       message: "Click a square to get started",
     }
   }
-
+  // This function updates the xo array (used for checking win and displaying marker)
+  // It also updates counter (used for checking turn)
+  // It finally updates message (used for displaying turn)
   update = (xo, nextTurn) => {
     this.setState({
       xo: xo,
@@ -25,7 +26,8 @@ class Board extends Component {
       message: `${nextTurn}'s turn`
     })
   }
-
+  // This function updates win status
+  // It also updates the message to announce the winner (passed as argument in Square.js)
   alertWin = (who) => {
     this.setState({
       win: true,
@@ -33,6 +35,7 @@ class Board extends Component {
     })
   }
 
+  // This function does what the last one does, but announces a tie
   alertTie = () => {
     this.setState({
       win: true,
@@ -40,6 +43,8 @@ class Board extends Component {
     })
   }
 
+  // This function resets all state variables
+  // Because a Square shows the value inside xo at its associated index, this clears the board
   reset = () => {
     this.setState({
       xo: ["", "", "", "", "", "", "", "", ""],
@@ -50,7 +55,7 @@ class Board extends Component {
   }
 
   render() {
-    let squares = this.state.squareArray.map((square, index) => {
+    let squares = this.state.xo.map((square, index) => {
       return ( <
         Square index = {
           index
