@@ -1,6 +1,4 @@
-import React, {
-  Component
-} from 'react'
+import React, { Component } from 'react'
 import './Square.css'
 
 class Square extends Component {
@@ -13,18 +11,21 @@ class Square extends Component {
     counter,
     xo,
     index,
-    win
+    win,
+    announce,
+    update
   } = this.props
-  // Declare current marker and next piece variables for rest of function
+
+  // Declare current and next marker variables for rest of function
   // Not going to bother assigning values until necessary
   // i.e. when a valid square is clicked
   let current, next
 
   // Only do something if the game is not yet won
   if ( !win ) {
-    // And even then, only do something if the square is not yet filled
+    // Even then, only do something if the square is not yet filled
     if ( xo[ index ] === "" ) {
-      // Finally assign values to the current and next markers based on counter
+      // Assign values to current and next markers based on counter
       if ( counter % 2 === 0 ) {
         current = 'X'
         next = 'O'
@@ -34,13 +35,13 @@ class Square extends Component {
       }
       // xo[ index ] is what gets displayed visually
       xo[ index ] = current
-      // update the xo array (used for checking win)
-      // also update 'next' (used for displaying current player's turn)
-      this.props.update( xo, next )
+      // Update the xo array (used for checking win)
+      // Update 'next' (used for displaying current player's turn)
+      update( xo, next )
     }
 
     // After making a move, if X has made 3 turns, start checking for wins
-    if ( this.props.counter > 3 ) {
+    if ( counter > 3 ) {
       // Declare array of arrays of winning-line indexes (indices?)
       var combos = [
         [ 0, 1, 2 ],
@@ -61,22 +62,23 @@ class Square extends Component {
         } )
       } )
 
-      // If someone won, alert such
+      // If someone wins, alert such
       if ( winCheck ) {
-        this.props.alertWin( `${current} Wins!!!` )
-        // Otherwise (if no one won) if there are no more moves, alert such
-      } else if ( this.props.counter === 8 ) {
-        this.props.alertWin( "Tie like ya neck" )
+        announce( `${current} Wins!!!` )
+        // Otherwise if there are no more moves and no winner, alert such
+      } else if ( counter === 8 ) {
+        announce( "This is usually a tie, but it's 2018 so everyone's a winner" )
       }
     }
   }
 }
 
   render() {
+    let { xo, index } = this.props
     return (
       <div className = "Wrapper">
         <div className = "Square" onClick = {this.handleClick}>
-          {this.props.xo[this.props.index]}
+          {xo[index]}
         </div>
       </div>
     )

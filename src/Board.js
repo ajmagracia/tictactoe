@@ -1,6 +1,4 @@
-import React, {
-  Component
-} from 'react'
+import React, { Component } from 'react'
 import './App.css'
 import Square from './Square'
 import NewGame from './NewGame'
@@ -11,11 +9,12 @@ class Board extends Component {
     super()
     this.state = {
       counter: 0,
-      xo: ["", "", "", "", "", "", "", "", ""],
-      win: false,
       message: "Click a square to get started",
+      win: false,
+      xo: ["", "", "", "", "", "", "", "", ""],
     }
   }
+  
   // This function updates the xo array (used for checking win and displaying marker)
   // It also updates counter (used for checking turn)
   // It finally updates message (used for displaying turn)
@@ -26,20 +25,13 @@ class Board extends Component {
       message: `${nextTurn}'s turn`
     })
   }
-  // This function updates win status
+
+  // This function updates win status (to prevent further moves)
   // It also updates the message to announce the winner (passed as argument in Square.js)
-  alertWin = (who) => {
+  announce = (who) => {
     this.setState({
       win: true,
       message: who,
-    })
-  }
-
-  // This function does what the last one does, but announces a tie
-  alertTie = () => {
-    this.setState({
-      win: true,
-      message: `Tie like ya neck`,
     })
   }
 
@@ -55,43 +47,38 @@ class Board extends Component {
   }
 
   render() {
-    let squares = this.state.xo.map((square, index) => {
-      return ( <
-        Square index = {
-          index
-        }
-        key = {
-          index
-        }
-        alertWin = {
-          this.alertWin
-        }
-        win = {
-          this.state.win
-        }
-        xo = {
-          this.state.xo
-        }
-        update = {
-          this.update
-        }
-        counter = {
-          this.state.counter
-        }
+    let { xo, win, counter, message } = this.state
+    let { announce, update, reset } = this
+    let squares = xo.map((square, index) => {
+      return (
+        <
+        Square
+        key =      { index }
+        counter =  { counter }
+        index =    { index }
+        win =      { win }
+        xo =       { xo }
+        announce = { announce }
+        update =   { update }
         />
       )
     })
+
     return (
-      <div className="Game">
-        <div className="Header">
-         <Header message={this.state.message}/>
+      <div className = "Game">
+
+        <div className = "Header">
+         <Header message = { message }/>
         </div>
-        <div className="ttt">
-          {squares}
+
+        <div className = "ttt">
+          { squares }
         </div>
-        <div className ="button">
-          <NewGame reset={this.reset}/>
+
+        <div className = "button">
+          <NewGame reset = { reset }/>
         </div>
+
       </div>
     )
   }
