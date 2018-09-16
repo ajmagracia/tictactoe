@@ -4,6 +4,10 @@ import Square from './Square'
 import NewGame from './NewGame'
 import Header from './Header'
 
+// The Board consists of 3 main parts:
+// A "Header", which is really just a message and name of the game,
+// Squares, which are just representations of the Board's state,
+// and the New Game button, which resets the game
 class Board extends Component {
   constructor() {
     super()
@@ -11,44 +15,83 @@ class Board extends Component {
       counter: 0,
       message: "Click a square to get started",
       win: false,
-      xo: ["", "", "", "", "", "", "", "", ""],
+      xo: [ "", "", "", "", "", "", "", "", "" ],
     }
   }
-  
+
   // This function updates the xo array (used for checking win and displaying marker)
   // It also updates counter (used for checking turn)
   // It finally updates message (used for displaying turn)
-  update = (xo, nextTurn) => {
-    this.setState({
+  update = ( index, currentMarker, nextMarker ) => {
+    let { xo, counter } = this.state
+
+    // xo[ index ] is what gets displayed visually
+    xo[ index ] = currentMarker
+
+    this.setState( {
       xo: xo,
-      counter: this.state.counter + 1,
-      message: `${nextTurn}'s turn`
-    })
+      counter: counter + 1,
+      message: `${nextMarker}'s turn`
+    } )
+  }
+
+  checkWin = ( marker ) => {
+    let { announce } = this
+    let { xo, counter } = this.state
+
+    // These arrays represent xo indexes of winning combinations
+    const combos = [
+      [ 0, 1, 2 ],
+      [ 3, 4, 5 ],
+      [ 6, 7, 8 ],
+      [ 0, 3, 6 ],
+      [ 1, 4, 7 ],
+      [ 2, 5, 8 ],
+      [ 0, 4, 8 ],
+      [ 2, 4, 6 ]
+    ]
+
+    // If one of the arrays inside combos returns true, return true
+    let isThereWinner = combos.some( combo => {
+      // If the following returns true for each value in an index array, return true
+      return combo.every( x => {
+        // If the xo[index] contains the marker, return true
+        return xo[ x ] === marker
+      } )
+    } )
+
+    // If someone wins, alert such
+    if ( isThereWinner ) {
+      announce( `${marker} Wins!!!` )
+      // Otherwise if there are no more moves and no winner, alert such
+    } else if ( counter === 8 ) {
+      announce( "This is usually a tie, but it's 2018 so everyone's a winner" )
+    }
   }
 
   // This function updates win status (to prevent further moves)
-  // It also updates the message to announce the winner (passed as argument in Square.js)
-  announce = (who) => {
-    this.setState({
+  // It also updates the message to announce the message (passed as argument)
+  announce = ( what ) => {
+    this.setState( {
       win: true,
-      message: who,
-    })
+      message: what,
+    } )
   }
 
   // This function resets all state variables
-  // Because a Square shows the value inside xo at its associated index, this clears the board
+  // Because Squares are just representations of xo, this clears the board
   reset = () => {
-    this.setState({
-      xo: ["", "", "", "", "", "", "", "", ""],
+    this.setState( {
+      xo: [ "", "", "", "", "", "", "", "", "" ],
       win: false,
       counter: 0,
       message: "Click a square to get started",
-    })
+    } )
   }
 
   render() {
     let { xo, win, counter, message } = this.state
-    let { announce, update, reset } = this
+    let { checkWin, update, reset } = this
     let squares = xo.map((square, index) => {
       return (
         <
@@ -58,7 +101,7 @@ class Board extends Component {
         index =    { index }
         win =      { win }
         xo =       { xo }
-        announce = { announce }
+        checkWin = { checkWin }
         update =   { update }
         />
       )
