@@ -1,16 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './button.css'
-class NewGame extends Component {
 
-  render(){
-    return(
-      <div className="button">
-
-        <button onClick={this.props.reset}>New Game</button>
-      </div>
-    )
-  }
-
+export default function NewGame(props) {
+  return(
+    <div className="button">
+      <button onClick={props.reset} children="Reset Game" />
+    </div>
+  )
 }
-
-export default NewGame

@@ -1,16 +1,10 @@
-import React, { Component } from 'react'
-import './App.css'
+import React from 'react'
 
-class Header extends Component {
-  render(){
+export default function Header(props) {
     return(
       <div>
         <h1 className="header">Tic Tac Toe</h1>
-        <h2 className="header" style={this.props}>{this.props.message}</h2>
+        <h2 className="header">{ props.message }</h2>
       </div>
     )
-  }
-
 }
-
-export default Header
