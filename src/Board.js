@@ -33,15 +33,11 @@ export default class Board extends React.PureComponent {
 
     return (
       <React.Fragment>
-        <div className = "Header">
-          <Header message = { message }/>
-        </div>
+        <Header message = { message }/>
         <div className = "ttt">
           { squares }
         </div>
-        <div className = "button">
-          <NewGame reset = { this.reset }/>
-        </div>
+        <NewGame reset = { this.reset }/>
       </React.Fragment>
     )
   }
@@ -68,7 +64,7 @@ export default class Board extends React.PureComponent {
   _update = ( index, currentMarker, nextMarker, xo, counter ) => {
     const { _checkWin } = this
     xo[ index ] = currentMarker // This gets displayed on the Square
-    
+
     this.setState({
       xo,
       counter,

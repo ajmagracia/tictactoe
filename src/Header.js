@@ -2,9 +2,9 @@ import React from 'react'
 
 export default function Header(props) {
     return(
-      <div>
+      <React.Fragment>
         <h1 className="header">Tic Tac Toe</h1>
         <h2 className="header">{ props.message }</h2>
-      </div>
+      </React.Fragment>
     )
 }
