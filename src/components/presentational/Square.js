@@ -11,8 +11,8 @@ as well as to call handleClick with the proper index
 export default function Square(props) {
   let { xo, index, handleClick } = props
   return (
-    <div className = "Wrapper">
-      <div className = "Square" onClick = {() => handleClick(index)}>
+    <div className="Wrapper">
+      <div className="Square" onClick={() => handleClick(index)}>
         {xo[index]}
       </div>
     </div>
