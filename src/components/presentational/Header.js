@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 export default function Header(props) {
   return(
@@ -7,4 +8,8 @@ export default function Header(props) {
       <h2 className="header">{ props.children }</h2>
     </React.Fragment>
   )
+}
+
+Header.propTypes = {
+  children: PropTypes.string.isRequired
 }

@@ -1,5 +1,6 @@
 import React from 'react'
 import '../../css/Square.css'
+import PropTypes from 'prop-types'
 
 /*
 A square just denotes a clickable part of the board, and is thus stateless
@@ -17,4 +18,10 @@ export default function Square(props) {
       </div>
     </div>
   )
+}
+
+Square.propTypes = {
+  xo: PropTypes.array.isRequired,
+  index: PropTypes.number.isRequired,
+  handleClick: PropTypes.func.isRequired
 }
