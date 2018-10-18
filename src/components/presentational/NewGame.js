@@ -1,5 +1,5 @@
 import React from 'react'
-import './button.css'
+import '../../css/button.css'
 
 export default function NewGame(props) {
   return(

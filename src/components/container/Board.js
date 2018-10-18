@@ -1,7 +1,7 @@
 import React from 'react'
-import Square from './Square'
-import NewGame from './NewGame'
-import Header from './Header'
+import Square from '../presentational/Square'
+import NewGame from '../presentational/NewGame'
+import Header from '../presentational/Header'
 
 const combos = [ // These arrays represent xo indexes of winning combinations
   [ 0, 1, 2 ],

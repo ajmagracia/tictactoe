@@ -1,5 +1,5 @@
 import React from 'react'
-import './Square.css'
+import '../../css/Square.css'
 
 /*
 A square just denotes a clickable part of the board, and is thus stateless
