@@ -42,11 +42,11 @@ export default class Board extends React.Component {
 
     return (
       <React.Fragment>
-        <Header children = { this.announce( win, counter ) }/>
-        <div className = "ttt">
+        <Header children={ this.announce( win, counter ) }/>
+        <div className="ttt">
           { squares }
         </div>
-        <NewGame reset = { this.reset }/>
+        <NewGame reset={this.reset}/>
       </React.Fragment>
     )
   }
